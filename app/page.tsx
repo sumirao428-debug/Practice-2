@@ -6,6 +6,7 @@ import Counter from "./components/Counter";
 import Lottery from "./components/Lottery";
 import PrimeChecker from "./components/PrimeChecker";
 import OnlineCounter from "./components/OnlineCounter";
+import QRCode from "./components/QRCode";
 
 const TOOLS = [
   {
@@ -28,6 +29,13 @@ const TOOLS = [
     title: "質數判斷",
     desc: "輸入任意整數，伺服器端即時判斷是否為質數。",
     component: <PrimeChecker />,
+  },
+  {
+    icon: "⬡",
+    iconColor: "#a09070",
+    title: "QR Code",
+    desc: "輸入網址，即時產生可下載的 QR Code。",
+    component: <QRCode />,
   },
 ];
 
@@ -121,7 +129,7 @@ export default function Home() {
       {/* ── Tool Cards ── */}
       <section className="mx-auto max-w-4xl px-6 pb-10">
         <p className="mb-4 text-xs tracking-widest text-[#a09890] dark:text-[#7a7268]">互動小工具</p>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {TOOLS.map((tool) => (
             <div
               key={tool.title}
@@ -143,35 +151,6 @@ export default function Home() {
                 {tool.component}
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Navigation Cards ── */}
-      <section className="mx-auto max-w-4xl px-6 pb-16">
-        <p className="mb-4 text-xs tracking-widest text-[#a09890] dark:text-[#7a7268]">其他頁面</p>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {[
-            { href: "/qrcode", label: "QR Code 產生器", desc: "輸入網址，即時產生可下載的 QR Code", icon: "⬡" },
-          ].map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="group flex items-center justify-between rounded-2xl border border-[#d4cdc4] bg-[#e8e2d8] px-6 py-5 transition-colors hover:border-[#c0a09c] hover:bg-[#ede8e1] dark:border-[#403c36] dark:bg-[#2a2620] dark:hover:border-[#c8aaa6] dark:hover:bg-[#322d28]"
-            >
-              <div className="flex items-center gap-3">
-                <span className="text-sm text-[#a09890] dark:text-[#7a7268]">{link.icon}</span>
-                <div>
-                  <p className="text-sm font-semibold text-[#3d3730] dark:text-[#e8e2d8]">
-                    {link.label}
-                  </p>
-                  <p className="mt-0.5 text-xs text-[#a09890] dark:text-[#7a7268]">{link.desc}</p>
-                </div>
-              </div>
-              <span className="ml-4 text-[#c0a09c] transition-transform group-hover:translate-x-1 dark:text-[#c8aaa6]">
-                →
-              </span>
-            </Link>
           ))}
         </div>
       </section>
