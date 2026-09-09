@@ -29,7 +29,6 @@ const TOOLS = [
 ];
 
 const NAV_LINKS = [
-  { href: "/chart",  label: "折線圖", desc: "以 Recharts 繪製的月營收趨勢圖" },
   { href: "/qrcode", label: "QR Code 產生器", desc: "輸入網址，即時產生可下載的 QR Code" },
 ];
 
