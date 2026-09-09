@@ -28,9 +28,11 @@ export default function LoginPage() {
         body: JSON.stringify(loginForm),
       });
       const data = await res.json();
-      if (!res.ok) { setError(data.error); return; }
+      if (!res.ok) { setError(data.error ?? "登入失敗"); return; }
       login(data);
       router.push("/ledger");
+    } catch {
+      setError("連線錯誤，請稍後再試");
     } finally {
       setLoading(false);
     }
@@ -47,7 +49,7 @@ export default function LoginPage() {
         body: JSON.stringify(registerForm),
       });
       const data = await res.json();
-      if (!res.ok) { setError(data.error); return; }
+      if (!res.ok) { setError(data.error ?? "註冊失敗"); return; }
       const loginRes = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -61,6 +63,8 @@ export default function LoginPage() {
         setTab("login");
         setLoginForm({ email: registerForm.email, password: "" });
       }
+    } catch {
+      setError("連線錯誤，請稍後再試");
     } finally {
       setLoading(false);
     }
