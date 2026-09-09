@@ -1,22 +1,22 @@
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET as string;
-
-if (!JWT_SECRET) {
-  throw new Error("請在 .env.local 設定 JWT_SECRET");
-}
-
 export interface JwtPayload {
   userId: string;
   email: string;
 }
 
+function secret(): string {
+  const s = process.env.JWT_SECRET;
+  if (!s) throw new Error("請在 .env.local 設定 JWT_SECRET");
+  return s;
+}
+
 export function signToken(payload: JwtPayload): string {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: "7d" });
+  return jwt.sign(payload, secret(), { expiresIn: "7d" });
 }
 
 export function verifyToken(token: string): JwtPayload {
-  return jwt.verify(token, JWT_SECRET) as JwtPayload;
+  return jwt.verify(token, secret()) as JwtPayload;
 }
 
 export const COOKIE_NAME = "token";
