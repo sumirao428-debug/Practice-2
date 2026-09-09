@@ -11,7 +11,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  TooltipProps,
+  TooltipContentProps,
+  TooltipPayloadEntry,
 } from "recharts";
 
 // ── 假資料：三個產品線的月營收（單位：萬元）
@@ -74,7 +75,7 @@ function useIsDark() {
   return dark;
 }
 
-function CustomTooltip({ active, payload, label }: TooltipProps<number, string>) {
+function CustomTooltip({ active, payload, label }: TooltipContentProps) {
   const dark = useIsDark();
   const p = dark ? PALETTE.dark : PALETTE.light;
 
@@ -92,9 +93,9 @@ function CustomTooltip({ active, payload, label }: TooltipProps<number, string>)
       }}
     >
       <p style={{ color: p.textSecondary, fontSize: 12, marginBottom: 6 }}>{label}</p>
-      {payload.map((item) => (
+      {payload.map((item: TooltipPayloadEntry) => (
         <div
-          key={item.dataKey}
+          key={String(item.dataKey)}
           style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}
         >
           <span
@@ -168,7 +169,7 @@ export default function ChartPage() {
               width={42}
               tickFormatter={(v) => `${v}`}
             />
-            <Tooltip content={<CustomTooltip />} cursor={{ stroke: p.gridline, strokeWidth: 1 }} />
+            <Tooltip content={CustomTooltip} cursor={{ stroke: p.gridline, strokeWidth: 1 }} />
             <Legend
               iconType="circle"
               iconSize={8}
